@@ -31,14 +31,12 @@ if (command === 'add') {
     var note = notes.addNote(argv.title, argv.body);
     if (note) {
         console.log(" You write the new object in notes");
-        console.log(' -- which is');
-        console.log(` Title: ${note.title}`);
-        console.log(` body: ${note.body}`);
+        notes.logNote;
     } else {
         console.log(" You write an exist objects in node");
         console.log(' -- which is');
         // here I can't call note.title = undifiend same with note.body = undifined
-        // I want to log the title if was exists 
+        // I want to log the title if was exists
         // console.log(` Title: ${note.title}`);
         // console.log(` body: ${note.body}`);
     };
@@ -46,8 +44,14 @@ if (command === 'add') {
     notes.getAll();
     console.log(' listing all list')
 } else if(command === 'read') {
-    notes.getNote(argv.title);
-    console.log(' fetch or read from note');
+    var note = notes.getNote(argv.title);
+    if (note) {
+        console.log(" You fetch the note and read it");
+        notes.logNote(note);
+    } else {
+        console.log(" Your note was not exist");
+    }
+    console.log(' fetch or read from note called done');
 } else if (command === 'remove') {
     var noteRemoved = notes.getRemove(argv.title);
     var message = noteRemoved ? " The note you try to remove was removed" : " The note you are looking not found"

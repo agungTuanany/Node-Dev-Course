@@ -10,7 +10,6 @@ var fetchNotes = () => {
     } catch (e) {
         return [];
     }
-
 };
 
 var saveNotes = (notes) => {
@@ -31,7 +30,6 @@ var addNote = (title, body) => {
         saveNotes(notes);
         return note;
     }
-
 };
 
 var getAll = () => {
@@ -39,6 +37,10 @@ var getAll = () => {
 };
 
 var getNote = (title) => {
+    var notes = fetchNotes();
+    var filteredNotes = notes.filter((note) => note.title === title);
+    return filteredNotes[0];
+
     console.log(' You calling a getNote() function to fetch the notes', title);
 }
 
@@ -55,16 +57,23 @@ var getRemove = (title) => {
     return notes.length !== filteredNotes.length;
 }
 
+var logNote = (note) => {
+    console.log(' -- which is');
+    console.log(` Title: ${note.title}`);
+    console.log(` body: ${note.body}`);
+};
+
 module.exports = {
     addNote,
     getAll,
     getNote,
-    getRemove
+    getRemove,
+    logNote
 };
 
 /**
 quick challenge: make function call 'add'
-this 'add' function is gopnna set at exports object
+this 'add' function is gonna set at exports object
 this 'add' function take 2 arguments call 'a' and 'b'
 and return the result
 **/
@@ -78,14 +87,19 @@ module.exports.add = (a, b) => {
 
 /**
 module.exports.addNote = () => {
-// console.log('addNote ')
+// console.log('addNote ');
 return "you just call a function";
-}
+};
 **/
 
 /**
 // in ES5
 var addNote = function() {
 
+    return;
+};
+
+module.exports = {
+    addNote : addNote;
 };
 **/
