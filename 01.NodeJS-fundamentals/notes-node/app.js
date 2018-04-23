@@ -8,6 +8,13 @@ const os = require('os');
 // './' is relative path
 const notes = require('./notes.js')
 
+
+// pattern to recall function
+var res = notes.addNote();
+console.log(res);
+
+
+/**
 var user = os.userInfo();
 //console.log(user);
 
@@ -22,6 +29,8 @@ fs.appendFile('SelamatMalam.txt' , ` Hello ${user.username} there you are, You a
         console.log('You missing some thing to write to file');
     }
 });
+
+**/
 
 /**
 fs.appendFile('selamatMalam.txt',`hello! `$(user.),(err) => {
