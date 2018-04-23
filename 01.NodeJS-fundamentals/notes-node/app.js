@@ -5,6 +5,7 @@ console.log('starting app.js');
 const fs = require('fs');
 const os = require('os');
 const _ = require('lodash');
+const yargs = require('yargs');
 
 // './' is relative path
 const notes = require('./notes.js')
@@ -19,20 +20,26 @@ const notes = require('./notes.js')
 
 //console.log(process.argv);
 
+const argv = yargs.argv;
 var command = process.argv[2];
 console.log(' Your Command: ', command);
-console.log(process.argv);
+console.log(' Your processes is: ',process.argv);
+console.log(' Your Yargs is: ', argv);
 
 if (command === 'add') {
+    notes.addNote(argv.title, argv.body);
     console.log('Adding new list');
 } else if (command === 'list') {
+    notes.getAll();
     console.log('listing all list')
 } else if(command === 'read') {
+    notes.getNote(argv.title);
     console.log('fetch or read from note');
 } else if (command === 'remove') {
-    console.log('remove a note wtih command')
+    notes.getRemove(argv.title);
+    console.log('remove a note with command')
 } else {
-    console.log('command not recognized')
+    console.log('Your command not in my list command that i made')
 }
 
 // console.log(process.argv);
