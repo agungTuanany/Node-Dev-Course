@@ -1,4 +1,4 @@
-console.log(notes.js);
+console.log(' Starting notes.js ');
 
 const fs = require('fs');
 
@@ -23,8 +23,9 @@ var addNote = (title, body) => {
         title,
         body
     };
-    var duplicatesNotes = notes.filter((note) => note.title === title);
 
+    var duplicatesNotes = notes.filter((note) => note.title === title);
+    //console.log( "If you get message your input object was duplicated");
     if(duplicatesNotes.length === 0) {
         notes.push(note);
         saveNotes(notes);
@@ -34,19 +35,27 @@ var addNote = (title, body) => {
 };
 
 var getAll = () => {
-    console.log('You Getting all notes from getAll() function');
+    console.log(' You Getting all notes from getAll() function');
 };
 
 var getNote = (title) => {
-    console.log('You calling a getNote() function to fetch the notes', title);
+    console.log(' You calling a getNote() function to fetch the notes', title);
 }
 
 var getRemove = (title) => {
-    console.log('You calling a getRemove() function to remove the notes, Are you sure?', title);
+    var notes = fetchNotes();
+    var filteredNotes = notes.filter((note) => note.title !== title);
+    saveNotes(filteredNotes);
+
+    // this return statement is evaluating,
+    // cause notes and flteredNotes came with a new values
+    // and we wanna print out the message in 'remove' command in app.js.
+    // if not equal is return to a new filteredNotes
+    // if is equal is return a notes.length
+    return notes.length !== filteredNotes.length;
 }
 
 module.exports = {
-    // addNote: addNote,
     addNote,
     getAll,
     getNote,

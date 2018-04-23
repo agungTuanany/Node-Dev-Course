@@ -28,19 +28,33 @@ console.log(' Your processes is: ',process.argv);
 console.log(' Your Yargs is: ', argv);
 
 if (command === 'add') {
-    notes.addNote(argv.title, argv.body);
-    console.log('Adding new list');
+    var note = notes.addNote(argv.title, argv.body);
+    if (note) {
+        console.log(" You write the new object in notes");
+        console.log(' -- which is');
+        console.log(` Title: ${note.title}`);
+        console.log(` body: ${note.body}`);
+    } else {
+        console.log(" You write an exist objects in node");
+        console.log(' -- which is');
+        // here I can't call note.title = undifiend same with note.body = undifined
+        // I want to log the title if was exists 
+        // console.log(` Title: ${note.title}`);
+        // console.log(` body: ${note.body}`);
+    };
 } else if (command === 'list') {
     notes.getAll();
-    console.log('listing all list')
+    console.log(' listing all list')
 } else if(command === 'read') {
     notes.getNote(argv.title);
-    console.log('fetch or read from note');
+    console.log(' fetch or read from note');
 } else if (command === 'remove') {
-    notes.getRemove(argv.title);
-    console.log('remove a note with command')
+    var noteRemoved = notes.getRemove(argv.title);
+    var message = noteRemoved ? " The note you try to remove was removed" : " The note you are looking not found"
+    console.log(message);
+    console.log(' Hey you just remove a note with NodeJS command');
 } else {
-    console.log('Your command not in my list command that i made')
+    console.log(' Your command not in my list command that i made');
 }
 
 // console.log(process.argv);
