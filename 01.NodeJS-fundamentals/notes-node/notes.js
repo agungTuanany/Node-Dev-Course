@@ -17,8 +17,28 @@ var addNote = function() {
 };
 **/
 
+const fs = require('fs');
+
 var addNote = (title, body) => {
-    console.log('Adding note', title, body);
+    var notes = [];
+    var note = {
+        title,
+        body
+    };
+    try {
+        var noteString = fs.readFileSync('notes-data.json');
+        notes = JSON.parse(noteString);
+    } catch (e) {
+
+    }
+
+    var duplicatesNotes = notes.filter((note) => note.title === title);
+
+    if(duplicatesNotes.length === 0) {
+        notes.push(note);
+        fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+    }
+
 };
 
 var getAll = () => {
