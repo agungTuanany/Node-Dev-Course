@@ -4,9 +4,19 @@ console.log('starting app.js');
 
 const fs = require('fs');
 const os = require('os');
+const _ = require('lodash');
 
 // './' is relative path
 const notes = require('./notes.js')
+
+// console.log(_.isString(true));
+// console.log(_.isString('1'));
+
+//console.log(_.uniq(['agung', 1, 2, 'agung', 1,2,3,4,5,6]));
+
+var filteredArray = _.uniq(['agung', 1, 2, 'agung', 1,2,3,4,5,6]);
+console.log(filteredArray);
+
 
 /*
 // pattern to recall function
@@ -14,9 +24,12 @@ var res = notes.addNote();
 console.log(res);
 */
 
+/**
 var resultFromAddFunction = notes.add(5, 6);
 console.log(' result is ', resultFromAddFunction);
 console.log(' Result is ', notes.add(6, 6));
+**/
+
 
 /**
 var user = os.userInfo();
