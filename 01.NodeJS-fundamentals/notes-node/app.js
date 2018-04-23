@@ -8,11 +8,15 @@ const os = require('os');
 // './' is relative path
 const notes = require('./notes.js')
 
-
+/*
 // pattern to recall function
 var res = notes.addNote();
 console.log(res);
+*/
 
+var resultFromAddFunction = notes.add(5, 6);
+console.log(' result is ', resultFromAddFunction);
+console.log(' Result is ', notes.add(6, 6));
 
 /**
 var user = os.userInfo();

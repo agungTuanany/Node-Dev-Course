@@ -8,3 +8,15 @@ module.exports.addNote = () => {
     // console.log('addNote ')
     return "you just call a function";
 }
+
+/**
+quick challenge: make function call 'add'
+this 'add' function is gopnna set at exports object
+this 'add' function take 2 arguments call 'a' and 'b'
+and return the result
+
+**/
+
+module.exports.add = (a, b) => {
+    return a + b;
+};
