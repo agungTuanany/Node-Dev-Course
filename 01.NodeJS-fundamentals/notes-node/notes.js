@@ -1,42 +1,34 @@
-console.log('Starting notes.js');
-
-// console.log(module);
-//module.exports.age = 25;
-
-/**
-module.exports.addNote = () => {
-    // console.log('addNote ')
-    return "you just call a function";
-}
-**/
-
-/**
-// in ES5
-var addNote = function() {
-
-};
-**/
+console.log(notes.js);
 
 const fs = require('fs');
 
+// making reusable function
+var fetchNotes = () => {
+    try {
+        var noteString = fs.readFileSync('notes-data.json');
+        return JSON.parse(noteString);
+    } catch (e) {
+        return [];
+    }
+
+};
+
+var saveNotes = (notes) => {
+    fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+};
+
 var addNote = (title, body) => {
-    var notes = [];
+    var notes = fetchNotes();
     var note = {
         title,
         body
     };
-    try {
-        var noteString = fs.readFileSync('notes-data.json');
-        notes = JSON.parse(noteString);
-    } catch (e) {
-
-    }
-
     var duplicatesNotes = notes.filter((note) => note.title === title);
 
     if(duplicatesNotes.length === 0) {
         notes.push(note);
-        fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+        saveNotes(notes);
+        return note;
     }
 
 };
@@ -60,6 +52,7 @@ module.exports = {
     getNote,
     getRemove
 };
+
 /**
 quick challenge: make function call 'add'
 this 'add' function is gopnna set at exports object
@@ -69,3 +62,21 @@ and return the result
 module.exports.add = (a, b) => {
     return a + b;
 };
+
+
+// console.log(module);
+//module.exports.age = 25;
+
+/**
+module.exports.addNote = () => {
+// console.log('addNote ')
+return "you just call a function";
+}
+**/
+
+/**
+// in ES5
+var addNote = function() {
+
+};
+**/
