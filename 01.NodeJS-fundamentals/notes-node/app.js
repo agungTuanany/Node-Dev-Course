@@ -14,9 +14,28 @@ const notes = require('./notes.js')
 
 //console.log(_.uniq(['agung', 1, 2, 'agung', 1,2,3,4,5,6]));
 
-var filteredArray = _.uniq(['agung', 1, 2, 'agung', 1,2,3,4,5,6]);
-console.log(filteredArray);
+//var filteredArray = _.uniq(['agung', 'agung',1]);
+//console.log(filteredArray);
 
+//console.log(process.argv);
+
+var command = process.argv[2];
+console.log(' Your Command: ', command);
+console.log(process.argv);
+
+if (command === 'add') {
+    console.log('Adding new list');
+} else if (command === 'list') {
+    console.log('listing all list')
+} else if(command === 'read') {
+    console.log('fetch or read from note');
+} else if (command === 'remove') {
+    console.log('remove a note wtih command')
+} else {
+    console.log('command not recognized')
+}
+
+// console.log(process.argv);
 
 /*
 // pattern to recall function
