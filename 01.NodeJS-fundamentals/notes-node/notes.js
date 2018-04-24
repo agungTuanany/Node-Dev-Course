@@ -1,5 +1,3 @@
-console.log(' Starting notes.js ');
-
 const fs = require('fs');
 
 // making reusable function
@@ -33,6 +31,7 @@ var addNote = (title, body) => {
 };
 
 var getAll = () => {
+    return fetchNotes();
     console.log(' You Getting all notes from getAll() function');
 };
 
@@ -50,7 +49,7 @@ var getRemove = (title) => {
     saveNotes(filteredNotes);
 
     // this return statement is evaluating,
-    // cause notes and flteredNotes came with a new values
+    // cause notes and filteredNotes came with a new values
     // and we wanna print out the message in 'remove' command in app.js.
     // if not equal is return to a new filteredNotes
     // if is equal is return a notes.length

@@ -1,27 +1,10 @@
-console.log('starting app.js');
-
-// load in build-in module in node
-
 const fs = require('fs');
 const os = require('os');
 const _ = require('lodash');
 const yargs = require('yargs');
-
-// './' is relative path
 const notes = require('./notes.js')
-
-// console.log(_.isString(true));
-// console.log(_.isString('1'));
-
-//console.log(_.uniq(['agung', 1, 2, 'agung', 1,2,3,4,5,6]));
-
-//var filteredArray = _.uniq(['agung', 'agung',1]);
-//console.log(filteredArray);
-
-//console.log(process.argv);
-
 const argv = yargs.argv;
-//var command = process.argv[2];
+
 var command = argv._[0];
 console.log(' Your Command: ', command);
 console.log(' Your processes is: ',process.argv);
@@ -31,18 +14,14 @@ if (command === 'add') {
     var note = notes.addNote(argv.title, argv.body);
     if (note) {
         console.log(" You write the new object in notes");
-        notes.logNote;
+        notes.logNote(note);
     } else {
         console.log(" You write an exist objects in node");
-        console.log(' -- which is');
-        // here I can't call note.title = undifiend same with note.body = undifined
-        // I want to log the title if was exists
-        // console.log(` Title: ${note.title}`);
-        // console.log(` body: ${note.body}`);
     };
 } else if (command === 'list') {
-    notes.getAll();
-    console.log(' listing all list')
+    var allNotes = notes.getAll();
+    console.log(` listing all list ${allNotes.length} note(s)`);
+    allNotes.forEach((note) => notes.logNote(note));
 } else if(command === 'read') {
     var note = notes.getNote(argv.title);
     if (note) {
@@ -61,7 +40,6 @@ if (command === 'add') {
     console.log(' Your command not in my list command that i made');
 }
 
-// console.log(process.argv);
 
 /*
 // pattern to recall function
