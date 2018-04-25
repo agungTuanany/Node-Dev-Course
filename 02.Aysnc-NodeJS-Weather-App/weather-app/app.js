@@ -43,15 +43,15 @@ is error when you send the data to googleAPI is invalid
 2. you have badconnection to the internet
 3. or the domain not found.
 
-
 @param JSON.stringify(body,undifined,3) there is three argument we pass inspect
 the last argument form JSON.stringify() is a number
 the number is specified indentation in JSON format that we fetch.
 
 
 **/
-const request = require('request');
 const yargs = require('yargs');
+
+const geocode = require('./geocode/geocode');
 
 const argv = yargs
     .options({
@@ -66,30 +66,10 @@ const argv = yargs
     .alias('help', 'h')
     .argv;
 
-// console.log(argv)
-const encodedAdress = encodeURIComponent(argv.address);
-// const decodedAdress = decodeURIComponent(argv.address);
-
-const url = ` https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAdress} `;
-const url2 = ' https://maps.googleapis.com/maps/api/geocode/json?address=%20Pasar%20Kenari%20Salemba%20Raya%20Jakarta%20Pusat ';
-
-request({
-    //url: url,
-    url,
-    // url: url2,
-    json: true
-}, (error, response, body) => {
-    if (error) {
-        console.log(`Unabale to connect to Goole servers,`);
-    } else if(body.status === 'ZERO_RESULTS') {
-        console.log('Unable to find your address you looking for--==- ');
-    } else if(body.status === 'OK') {
-        // console.log(JSON.stringify(response, undefined, 3));
-        console.log(`are your status request OK?`)
-        console.log(`Address: ${body.results[0].formatted_address}`);
-        console.log(`Your location as with latittude: ${body.results[0].geometry.location.lat}`);
-        console.log(`Your location as with langtitude: ${body.results[0].geometry.location.lng}`);
+geocode.geocodeAddress(argv.address, (errorMessage, results) => {
+    if (errorMessage) {
+        console.log(errorMessage);
     } else {
-        console.log('may be you crashing some thing?');
+        console.log(JSON.stringify(results, undefined, 3));
     }
 });
