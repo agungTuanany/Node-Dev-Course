@@ -23,7 +23,6 @@ console.log(`This log from square3`,square3(9));
 
 
 /**
-
 explaining differences between regular function and arrow-function
 
 regular function:
@@ -37,9 +36,9 @@ arrow-function :
     }
 
 @param sayHi Here we try to define a method inside an object
-inside sayHi i assign arrow function,
+, sayHi method I assign it to arrow function,
 
-Since arrow function do not bind 'this' keyword. 'this' is binding in parrent function, since theresn't parrent function 'this' refered to global 'this' keyword or undefined.
+Since arrow-function do not bind 'this' keyword. Keyword 'this' is binding in parrent function, since theresn't parrent function 'this' keyword referred to global 'this' keyword or undefined.
 
 Arrow function also do not bind argumnet-array.
 
