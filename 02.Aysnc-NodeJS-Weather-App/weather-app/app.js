@@ -51,7 +51,26 @@ the number is specified indentation in JSON format that we fetch.
 
 **/
 const request = require('request');
-const url = ' https://maps.googleapis.com/maps/api/geocode/json?address=%20Kampus%20upiYAI%20salemba%20raya%20jakarta%20pusat ';
+const yargs = require('yargs');
+
+const argv = yargs
+    .options({
+        a: {
+            demand: true,
+            alias: 'address',
+            descrie: 'Address to fetch weather for ',
+            string:true
+        }
+    })
+    .help()
+    .alias('help', 'h')
+    .argv;
+
+// console.log(argv)
+const encodedAdress = encodeURIComponent(argv.address);
+// const decodedAdress = decodeURIComponent(argv.address);
+
+const url = ` https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAdress} `;
 const url2 = ' https://maps.googleapis.com/maps/api/geocode/json?address=%20Pasar%20Kenari%20Salemba%20Raya%20Jakarta%20Pusat ';
 
 request({
