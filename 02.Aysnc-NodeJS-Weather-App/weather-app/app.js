@@ -60,5 +60,8 @@ request({
     // url: url2,
     json: true
 }, (error, response, body) => {
-    console.log(JSON.stringify(error, undefined, 3));
+    // console.log(JSON.stringify(response, undefined, 3));
+    console.log(`Address: ${body.results[0].formatted_address}`);
+    console.log(`Your location as with latittude: ${body.results[0].geometry.location.lat}`);
+    console.log(`Your location as with langtitude: ${body.results[0].geometry.location.lng}`);
 });
