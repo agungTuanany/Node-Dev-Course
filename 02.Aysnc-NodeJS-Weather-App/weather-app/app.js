@@ -34,9 +34,9 @@ Inside the request have three object
     .- `"headers"` << this headers is request from node server to googleAPI server
     this headers get set when you added the `json: true`.
 
-@param error , is error when whe fecth the googleAPI server,
+@param error , is error when we fecth the googleAPI server,
 is error when we have a syntax error when request to googleAPI server
-is error when you send the data to googleAPI is invalid
+is error when we send the data to googleAPI is invalid
 
 @param "code":"ENOTFOUND", You will see this error if:
 1. You make a request from local machine cannot connect to the host provide it
