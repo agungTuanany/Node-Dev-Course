@@ -57,7 +57,9 @@ var getRemove = (title) => {
 }
 
 var logNote = (note) => {
-    console.log(' -- which is');
+    console.log(" ");
+    console.log(' --  is: ');
+    console.log();
     console.log(` Title: ${note.title}`);
     console.log(` body: ${note.body}`);
 };
