@@ -12,6 +12,11 @@
 @param app.lister is gonna bind the application to the port in machine, like local machine or server machine (web-server).
 
 @param app.use() is to setup the static directory.
+
+@param app.use(. .next) 'next' exist so you can tell express when your middleware function is done, this is usefull to registery singgle express app.
+
+when we do something async the middleware function in express not gonna move to execute the request or result untill you defined 'next()' to the application to continue tp run.
+This mean if yur middleware doesn't call nex() your handlers for each requuest never gonna fire from callback.
 **/
 
 const express = require('express');
@@ -26,11 +31,15 @@ app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + '/public'));
 
+app.use((req, res, next) => {
+    let now = new Date().toString();
+    console.log(`${now}: `)
+    next();
+});
+
 hbs.registerHelper('getCurrentYear', () => new Date().getFullYear());
 
-hbs.registerHelper('screamIt', (text) => {
-    return text.toUpperCase();
-});
+hbs.registerHelper('screamIt', (text) => text.toUpperCase());
 
 app.get('/', (req, res) => {
     // res.send('<h1> Hello, Express! </h1>');
