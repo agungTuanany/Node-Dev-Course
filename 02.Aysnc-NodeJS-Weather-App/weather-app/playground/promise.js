@@ -17,6 +17,8 @@ In Promise you dont have to worry to get callback called twice
 In Promise you can provide multiple function
 This promise just only run once.
  even you put another case to fetch anohter promise to doing resolve or reject function.
+
+@param .catch() is a function just only handle the error
 **/
 
 var asyncAdd = (a, b) => {
@@ -32,8 +34,11 @@ var asyncAdd = (a, b) => {
 };
 
 asyncAdd(4, 7).then((res) => {
-    console.log('Result: ',res);
-}, (errorMessage) => {
+    console.log('Result: ', res);
+    return asyncAdd(res, 20);
+}).then((res) => {
+    console.log('Should be 31', res);
+}) .catch ((errorMessage) => {
     console.log(errorMessage);
 });
 
