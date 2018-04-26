@@ -1,3 +1,4 @@
+
 /**
 @param app.get, we just register a handler to set up a handler
   for http get request,
@@ -17,6 +18,8 @@ const express = require('express');
 const hbs = require('hbs');
 
 var app = express();
+
+hbs.registerPartials(__dirname + '/views/partials');
 
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
