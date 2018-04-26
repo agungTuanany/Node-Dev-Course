@@ -43,7 +43,7 @@ asyncAdd(4, 7).then((res) => {
 });
 
 var somePromise = new Promise((resolve, reject) => {
-    setTimeout(() =>{
+    setTimeout(() => {
         // resolve('Hey, your fetch it worked');
         reject('Unable to fulfiil promise');
     }, 2500);

@@ -84,6 +84,3 @@ geocode.geocodeAddress(argv.address, (errorMessage, results) => {
         });
     }
 });
-
-// const forecastLatitude = '-6.192816199999999'; //-6.192816199999999
-// const forecastLongtitude = '106.8480559'; 	//106.8480559
