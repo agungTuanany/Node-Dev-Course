@@ -16,15 +16,32 @@ NOTE:
 In Promise you dont have to worry to get callback called twice
 In Promise you can provide multiple function
 This promise just only run once.
- even you put another case to fetch anohter promise to doing resolve or reject function. 
+ even you put another case to fetch anohter promise to doing resolve or reject function.
 **/
 
+var asyncAdd = (a, b) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (typeof a === 'number' && typeof b === 'number') {
+                resolve(a+b);
+            } else {
+                reject('Argument must be number');
+            }
+        }, 1500);
+    });
+};
+
+asyncAdd(4, 7).then((res) => {
+    console.log('Result: ',res);
+}, (errorMessage) => {
+    console.log(errorMessage);
+});
 
 var somePromise = new Promise((resolve, reject) => {
     setTimeout(() =>{
         // resolve('Hey, your fetch it worked');
         reject('Unable to fulfiil promise');
-    },2500);
+    }, 2500);
 });
 
 somePromise.then((message) => {
