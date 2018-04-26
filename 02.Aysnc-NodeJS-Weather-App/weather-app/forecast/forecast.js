@@ -10,7 +10,7 @@ var getWeather = (lat, lng, callback) => {
 
     //const urlForecast = ` https://api.darksky.net/forecast/b46c5e10ee98ef13616cd907d5430e26/-6.192816199999999,106.8480559 `;
     // const urlForecast1 = `https://api.darksky.net/forecast/${encodedAdress}/${encodedLat},${encodedLng} `;
-    const urlForecast2 = ` https://api.darksky.net/forecast/${forecastAPI}/${lat},${lat} `;
+    const urlForecast2 = ` https://api.darksky.net/forecast/${forecastAPI}/${lat},${lng} `;
 
     request({
         url: urlForecast2,
