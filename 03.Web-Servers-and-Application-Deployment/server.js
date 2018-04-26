@@ -26,12 +26,17 @@ app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + '/public'));
 
+hbs.registerHelper('getCurrentYear', () => new Date().getFullYear());
+
+hbs.registerHelper('screamIt', (text) => {
+    return text.toUpperCase();
+});
+
 app.get('/', (req, res) => {
     // res.send('<h1> Hello, Express! </h1>');
     res.render("home.hbs", {
         pageTitle: 'Home Page',
         wellcomeMessage: 'Wellcome to our webserver',
-        currentYear: new Date().getFullYear(),
     });
 });
 
@@ -39,7 +44,6 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     res.render("about.hbs", {
         pageTitle: 'About Page',
-        currentYear: new Date().getFullYear()
     });
 });
 
