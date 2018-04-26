@@ -73,16 +73,17 @@ geocode.geocodeAddress(argv.address, (errorMessage, results) => {
         console.log(errorMessage);
     } else {
         console.log(JSON.stringify(results, undefined, 3));
+        console.log(`Your address: ${results.address}`);
+        weather.getWeather( results.latitude, results.longtitude,(errorMessage, weatherResults) => {
+            if (errorMessage) {
+                console.log(errorMessage);
+            } else {
+                console.log(JSON.stringify(weatherResults, undefined, 3));
+                console.log(`Your temperature It's currenctly ${weatherResults.temperature} , actually ${weatherResults.apparentTemperature} `);
+            }
+        });
     }
 });
 
-const forecastLatitude = '-6.192816199999999'; //-6.192816199999999
-const forecastLongtitude = '106.8480559'; 	//106.8480559
-
-weather.getWeather( forecastLatitude, forecastLongtitude,(errorMessage, results) => {
-    if (errorMessage) {
-        console.log(errorMessage);
-    } else {
-        console.log(JSON.stringify(results, undefined, 3));
-    }
-});
+// const forecastLatitude = '-6.192816199999999'; //-6.192816199999999
+// const forecastLongtitude = '106.8480559'; 	//106.8480559
