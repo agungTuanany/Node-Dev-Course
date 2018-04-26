@@ -22,19 +22,19 @@ Is also show us the "body". same as @param body up above.
 
 Is also show us the "headers", are also part of HTTTP protocol as an object
 there are key value pairs. the key and the value are both string.
-'headers' can send the request that from node server to googleAPI server
+'headers' can send the request from node server to googleAPI server
 'headers' also can response from the googleAPI server back to node server
 From now go on you will setup your headers by yourself!.
 
 is also show us "request", are part of HTTP protocol as an object
-It's store some information about the request that was made
+It's store some information about the request that was made.
 Inside the request have three object
     .- `"uri"`
     .- `"method"`
     .- `"headers"` << this headers is request from node server to googleAPI server
     this headers get set when you added the `json: true`.
 
-@param error , is error when we fecth the googleAPI server,
+@param error , is error when we fetch the googleAPI server,
 is error when we have a syntax error when request to googleAPI server
 is error when we send the data to googleAPI is invalid
 
@@ -52,6 +52,7 @@ the number is specified indentation in JSON format that we fetch.
 const yargs = require('yargs');
 
 const geocode = require('./geocode/geocode');
+const weather = require('./forecast/forecast');
 
 const argv = yargs
     .options({
@@ -64,9 +65,21 @@ const argv = yargs
     })
     .help()
     .alias('help', 'h')
-    .argv;
+    .argv
+;
 
 geocode.geocodeAddress(argv.address, (errorMessage, results) => {
+    if (errorMessage) {
+        console.log(errorMessage);
+    } else {
+        console.log(JSON.stringify(results, undefined, 3));
+    }
+});
+
+const forecastLatitude = '-6.192816199999999'; //-6.192816199999999
+const forecastLongtitude = '106.8480559'; 	//106.8480559
+
+weather.getWeather( forecastLatitude, forecastLongtitude,(errorMessage, results) => {
     if (errorMessage) {
         console.log(errorMessage);
     } else {

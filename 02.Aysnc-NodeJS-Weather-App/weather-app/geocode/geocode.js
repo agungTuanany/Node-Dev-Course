@@ -7,9 +7,7 @@ var geocodeAddress = (address, callback) => {
     const url = ` https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAdress} `;
     const url2 = ' https://maps.googleapis.com/maps/api/geocode/json?address=%20Pasar%20Kenari%20Salemba%20Raya%20Jakarta%20Pusat ';
     request({
-        //url: url,
         url,
-        // url: url2,
         json: true
     }, (error, response, body) => {
         if (error) {

@@ -18,19 +18,20 @@ const bodyOptions =  {
 }
 
 const argv = yargs
-.command('add', 'Add a new note', {
-    title: titleOptions,
-    body: bodyOptions
-})
-.command('list', 'List all note')
-.command('read','Read a note', {
-    title: titleOptions
-})
-.command('remove', 'Remove a note', {
-    title: titleOptions
-})
-.help()
-.argv;
+    .command('add', 'Add a new note', {
+        title: titleOptions,
+        body: bodyOptions
+    })
+    .command('list', 'List all note')
+    .command('read','Read a note', {
+        title: titleOptions
+    })
+    .command('remove', 'Remove a note', {
+        title: titleOptions
+    })
+    .help()
+    .argv
+;
 
 var command = argv._[0];
 console.log(' Your Command: ', command);
@@ -87,11 +88,11 @@ var user = os.userInfo();
 
 // original line on node v-6
 // since I using node v-8 NodeJS need upgrade the bug
-// fs.appendFile('selamatMalam.txt' hello, world!);
+fs.appendFile('selamatMalam.txt' hello, world!);
 
 
 // option for node v-8
-fs.appendFile('SelamatMalam.txt' , ` Hello ${user.username} there you are, You are ${notes.age} Years olds`, (err) => {
+fs.appendFile('SelamatMalam.txt' ,`Hello ${user.username} there you are, You are ${notes.age} Years olds`, (err) => {
     if (err) {
         console.log('You missing some thing to write to file');
     }
@@ -100,6 +101,7 @@ fs.appendFile('SelamatMalam.txt' , ` Hello ${user.username} there you are, You a
 **/
 
 /**
+
 fs.appendFile('selamatMalam.txt',`hello! `$(user.),(err) => {
     if (err) {
         console.log();

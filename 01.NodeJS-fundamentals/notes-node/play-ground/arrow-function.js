@@ -1,6 +1,6 @@
 /**
 explaining using arrow function in two different type:
-1. arrow function use to passing some statement sysntax
+1. arrow function use to passing some statement syntax
 2. arrow function use to passing some expression syntax
     in here you don't need yo put 'return' keyword it's implicitly provided.
 **/
@@ -38,17 +38,23 @@ arrow-function :
 @param sayHi Here we try to define a method inside an object
 , sayHi method I assign it to arrow function,
 
-Since arrow-function do not bind 'this' keyword. Keyword 'this' is binding in parrent function, since theresn't parrent function 'this' keyword referred to global 'this' keyword or undefined.
+Since arrow-function do not bind 'this' keyword.
+Keyword 'this' is binding in parrent function,
+since theresn't parrent function
+'this' keyword referred to global 'this' keyword or undefined.
 
 Arrow function also do not bind argumnet-array.
 
-@param sayHiAlt ES6 provide us new feature to make method inside an object, the way is:
+@param sayHiAlt ES6 provide us new feature to make method inside an object,
+ the way is:
+
     // just put a singgle white space after you methodName
     methodNmae () {
               ^
-}
+    }
 
-cause much more error message when you want to try make a method inside an objects by using arrow-function.  look at sayHiAltt method.
+cause much more error message when you want to try make a method inside an objects
+by using arrow-function. Look at sayHiAltt method.
 
 **/
 
