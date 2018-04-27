@@ -16,6 +16,14 @@ things like the headers, any body information the method that was made with requ
 
 when we do something async the middleware function in express not gonna move to execute the request or result untill you defined 'next()' to the application to continue to run.
 This mean if yur middleware doesn't call nex() your handlers for each requuest never gonna fire from callback.
+
+@ app.use(express.static(__dirname + '/public'));
+Currently the express server is responding inside the express static middleware, so our maintenance middleware (dynamic middleware) didn't have a chance to execute
+
+help.html showed up event we put maintenance.hbs. Becaue maintenance.hbs rendered after calling help.hml.
+To resolve that we render maintenance.hbs before calling help.html.
+And finally we use the express static.
+
 **/
 
 const express = require('express');
@@ -28,8 +36,6 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
-
-app.use(express.static(__dirname + '/public'));
 
 app.use((req, res, next) => {
     let now = new Date().toString();
@@ -47,6 +53,8 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     res.render('maintenance.hbs');
 });
+
+app.use(express.static(__dirname + '/public'));
 
 hbs.registerHelper('getCurrentYear', () => new Date().getFullYear());
 
