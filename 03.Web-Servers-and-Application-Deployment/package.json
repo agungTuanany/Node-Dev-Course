@@ -12,5 +12,9 @@
     "express": "^4.16.3",
     "hbs": "^4.0.1"
   },
+  "engines": {
+    "node": "8.11.1",
+    "npm": "5.6.x"
+  },
   "description": ""
 }

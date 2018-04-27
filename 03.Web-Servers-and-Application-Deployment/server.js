@@ -15,7 +15,7 @@ things like the headers, any body information the method that was made with requ
 @param app.use(. .next) 'next' exist so you can tell express when your middleware function is done, this is usefull to registery single express app.
 
 when we do something async the middleware function in express not gonna move to execute the request or result untill you defined 'next()' to the application to continue to run.
-This mean if yur middleware doesn't call nex() your handlers for each requuest never gonna fire from callback.
+This mean if your middleware doesn't call next() your handlers for each requuest never gonna fire from callback.
 
 @ app.use(express.static(__dirname + '/public'));
 Currently the express server is responding inside the express static middleware, so our maintenance middleware (dynamic middleware) didn't have a chance to execute
@@ -24,11 +24,15 @@ help.html showed up event we put maintenance.hbs. Becaue maintenance.hbs rendere
 To resolve that we render maintenance.hbs before calling help.html.
 And finally we use the express static.
 
+@param proccess.env.PORT . is an object that store all variablle as key value pairs we looking that herouku set call 'port'
+
 **/
 
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
+
+const port = process.env.PORT || 3000 ;
 
 var app = express();
 
@@ -68,10 +72,16 @@ app.get('/', (req, res) => {
     });
 });
 
-
 app.get('/about', (req, res) => {
     res.render("about.hbs", {
         pageTitle: 'About Page',
+    });
+});
+
+app.get('/project', (req, res) => {
+    res.render('project.hbs',{
+        wellcomeMessage: 'portofoloio here',
+        pageTitle: "Project Page",
     });
 });
 
@@ -81,7 +91,6 @@ app.get('/bad', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log("Server is up on port 3000")
-});
-
+app.listen(port, () => {
+    console.log(`Server is up on port ${port}`)
+  });
