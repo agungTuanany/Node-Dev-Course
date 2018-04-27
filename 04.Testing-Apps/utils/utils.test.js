@@ -4,6 +4,11 @@
 @param it , is a function provided by mocha
 
 BDD : Behavior Driven Development, this is a principle that mocha build in
+
+specific using nodemon:
+    nodemon --exec 'npm test'
+    or
+    "nodemon --exec \"npm test\"" << type it in package.json under script
 **/
 
 const utils = require('./utils');
