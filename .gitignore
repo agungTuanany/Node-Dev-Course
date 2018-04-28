@@ -1,5 +1,6 @@
 # folders
 node_modules
+mongo-data
 
 # files
 package-lock.json
