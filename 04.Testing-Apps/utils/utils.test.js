@@ -20,41 +20,52 @@ go to https://github.com/mjackson/expect
 
 @param (done) is it to tell mocha that we use async to Test, and call it after all counts was done.
 
-asseertion: pernaytaan tegas
+asseertion: pernyataan tegas
 
+@param describe() is a function that mocha provide to grouping tests.
+@param ('#add') this is the comment syntax for adding a describe block for specific method.
 **/
 const expect = require('expect');
 
 const utils = require('./utils');
 
-it('should add two number', () => {
-    let res = utils.add(33, 11);
+describe('utils', () => {
 
-    expect(res).toBe(44).toBeA('number');
-    // if (res !== 44) {
-    //     throw new Error(`Expected 44, but got${res}. `);
-    // }
-});
+    describe('#add', () => {
+        it('should add two number', () => {
+            let res = utils.add(33, 11);
 
-it('1.should aysnc add two number', (done) => {
-    utils.asyncAdd(4, 5, (sum) => {
-        expect(sum).toBe(9).toBeA('number');
-        done();
+            expect(res).toBe(44).toBeA('number');
+            // if (res !== 44) {
+            //     throw new Error(`Expected 44, but got${res}. `);
+            // }
+        });
     });
-});
 
-it('2.should async square a number', (done) => {
-    utils.asyncSquare(4, (res) => {
-        expect(res).toBe(16).toBeA('number');
-        done();
+    describe('#square', () => {
+        it('should square one number to', () => {
+            let res = utils.square(4);
+
+            expect(res).toBe(16).toBeA('number');
+        });
     });
-});
 
+    describe('#async', () => {
+        it('1.should aysnc add two number', (done) => {
+            utils.asyncAdd(4, 5, (sum) => {
+                expect(sum).toBe(9).toBeA('number');
+                done();
+            });
+        });
 
-it('should square one number to', () => {
-    let res = utils.square(4);
+        it('2.should async square a number', (done) => {
+            utils.asyncSquare(4, (res) => {
+                expect(res).toBe(16).toBeA('number');
+                done();
+            });
+        });
+    });
 
-    expect(res).toBe(16).toBeA('number');
 });
 
 // should verify first and last name are set

@@ -29,6 +29,24 @@ app.get('/users',(req, res) => {
     }]);
 });
 
+app.get('/users-2', (req, res) => {
+    setTimeout(() =>{
+        res.send([{
+            name: "Jono",
+            age: 25,
+            address: "Kodam Jaya"
+        }, {
+            name: "Sam",
+            age: 23,
+            address: "Kodim Pusat"
+        }, {
+            name: "Tony",
+            age: 32,
+            address: "Koramil Pusat"
+        }]);
+    },600);
+})
+
 app.listen(port);
 
 module.exports ={
