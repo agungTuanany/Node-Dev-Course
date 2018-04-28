@@ -20,6 +20,8 @@ go to https://github.com/mjackson/expect
 
 @param (done) is it to tell mocha that we use async to Test, and call it after all counts was done.
 
+asseertion: pernaytaan tegas
+
 **/
 const expect = require('expect');
 
