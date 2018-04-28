@@ -18,6 +18,8 @@ go to https://github.com/mjackson/expect
 @param toInclude is better use for array and object
 @param toExclude is better use for array and object
 
+@param (done) is it to tell mocha that we use async to Test, and call it after all counts was done.
+
 **/
 const expect = require('expect');
 
@@ -32,7 +34,22 @@ it('should add two number', () => {
     // }
 });
 
-it('should square one number to ', () => {
+it('1.should aysnc add two number', (done) => {
+    utils.asyncAdd(4, 5, (sum) => {
+        expect(sum).toBe(9).toBeA('number');
+        done();
+    });
+});
+
+it('2.should async square a number', (done) => {
+    utils.asyncSquare(4, (res) => {
+        expect(res).toBe(16).toBeA('number');
+        done();
+    });
+});
+
+
+it('should square one number to', () => {
     let res = utils.square(4);
 
     expect(res).toBe(16).toBeA('number');
