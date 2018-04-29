@@ -12,7 +12,7 @@ const assert = require('assert');
 
 const url = 'mongodb://localhost:27017'
 
-const dbName = 'TodoApp'
+ const dbName = 'TodoApp'
 
 MongoClient.connect(url, (err, client) => {
     if (err) {
@@ -34,12 +34,39 @@ MongoClient.connect(url, (err, client) => {
         completed: false
     };
 
-    db.collection('Todo').insertOne(insertData2, (err, result) => {
+    // db.collection('Todo').insertOne(insertData2, (err, result) => {
+    //     if (err) {
+    //         assert.equal(null, err);
+    //         return(err);
+    //     }
+    //     assert.equal(1, result.insertedCount);
+    //     console.log(JSON.stringify(result.ops, undefined, 3));
+    // });
+/*
+    client.db('DatabaseName').collection('tabelName').insertOne({}, () => {});
+*/
+    db.collection('Users').insertMany([{
+        name: "Jono",
+        age: 25,
+        location: 'Kodam Jaya'
+    },{
+        name: "Jaroko",
+        age: 25,
+        location: 'Kodim Jaya'
+    }, {
+        name: "Tiancha",
+        age: 32,
+        location: 'Koramil Jaya'
+    }], (err, result) => {
         if (err) {
             assert.equal(null, err);
-            return(err);
+            console.log(`Unable to insert user`, err);
         }
-        assert.equal(1, result.insertedCount);
+        console.log(`You inserted to database`, result);
+        assert.equal(3, result.insertedCount);
+        console.log(`assert.equal(3, ${result.insertedCount})`);
         console.log(JSON.stringify(result.ops, undefined, 3));
+        console.log(result.ops);
     });
+    client.close();
 });
