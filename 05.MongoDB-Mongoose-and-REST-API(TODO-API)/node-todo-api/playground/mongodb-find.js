@@ -26,5 +26,15 @@ MongoClient.connect(url, (err, client) => {
         console.log('Unable to fetch Todo', err);
     });
 
+    // quick challenges provide a name from 'User' collection and return name 'Jono'
+    db.collection('Users').find({
+        name: 'Jono'
+    }).toArray().then((name) => {
+        console.log('Users:')
+        console.log(JSON.stringify(name, undefined, 3));
+    }, (err) => {
+        console.log('you have wrong input, comeback next time', err);
+    });
+
     client.close();
 });
