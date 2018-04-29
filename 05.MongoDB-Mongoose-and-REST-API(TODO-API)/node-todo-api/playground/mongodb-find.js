@@ -17,13 +17,14 @@ MongoClient.connect(url, (err, client) => {
 
     // client.db('DatabaseName').collection('tabelName').insertOne({}, () => {});
 
-    db.collection("Todo").find().toArray().then((docs) => {
+    db.collection("Todo").find({
+        _id: new ObjectID('5ae54615f214d773f3f16df9')
+    }).toArray().then((docs) => {
         console.log('Todos');
         console.log(JSON.stringify(docs, undefined, 3));
     }, (err) => {
         console.log('Unable to fetch Todo', err);
     });
 
-
-    // client.close();
+    client.close();
 });
