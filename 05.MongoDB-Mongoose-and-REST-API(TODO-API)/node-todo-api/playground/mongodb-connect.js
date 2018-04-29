@@ -6,8 +6,31 @@
 
 @param db.collection() is argument to insert into a new record.
 @param (result.ops) , the ops attribut is gonna store all of the docs we inserted @param InsertOne()
+
+object id in _id is made up with 12 byte value
+id: 5ae53c9d739af50fea7fcfcf
+
+    5ae5    << first 4 byte is a timestamp
+    3c9     << a machine identifier. if two computer generate object id (_id) their machine id gonna be different. To ensure the id is unique
+    d7      << process id
+    39a     << this is similar what mysql would do. A random value
+
+@param result.ops[0]._id : is to fetch the unique id from the collection that we made.
+
+@param result.ops[0]._id.getTimestamp() : is a function doesn't take any arguments, it's simply return the Timestamp that the obejct id (._id) was created at.
+
+@param {name} OBJECT DESTRUCTURING doing is to let you pull out the properties from the object creating variables.
+
+ES6 destructuring is a fantastic way to make  new variables from object properties
+
+    ei. ES6 destructuring
+
+    var user = {name: 'Jono', age: 25};
+    var {name} = user;
 */
-const MongoClient = require('mongodb').MongoClient;
+// const MongoClient = require('mongodb').MongoClient;
+const {MongoClient, ObjectID} = require('mongodb');
+
 const assert = require('assert');
 
 const url = 'mongodb://localhost:27017'
@@ -62,11 +85,12 @@ MongoClient.connect(url, (err, client) => {
             assert.equal(null, err);
             console.log(`Unable to insert user`, err);
         }
-        console.log(`You inserted to database`, result);
+        // console.log(`You inserted to database`, result);
         assert.equal(3, result.insertedCount);
         console.log(`assert.equal(3, ${result.insertedCount})`);
-        console.log(JSON.stringify(result.ops, undefined, 3));
-        console.log(result.ops);
+        // console.log(JSON.stringify(result.ops, undefined, 3));
+        console.log(result.ops[1]);
+        console.log(result.ops[0]._id.getTimestamp());
     });
     client.close();
 });
