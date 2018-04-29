@@ -89,7 +89,7 @@ MongoClient.connect(url, (err, client) => {
         assert.equal(3, result.insertedCount);
         console.log(`assert.equal(3, ${result.insertedCount})`);
         // console.log(JSON.stringify(result.ops, undefined, 3));
-        console.log(result.ops[1]);
+        console.log(result.ops);
         console.log(result.ops[0]._id.getTimestamp());
     });
     client.close();
