@@ -39,4 +39,25 @@ describe('POST /todos', () => {
                 }).catch((e) => done(e));
             });
     });
+    // quick challenge
+    // make a post request with send is empty object and cost to fail
+    // end it with error checking and make some assumption about the database
+    // the assumption you madke is the length of 'todos' is zero
+    // since this code does not create 'todo' not 'todo' should be there
+    it('should not create todo with invaled body data', (done) => {
+        request(app)
+            .post('/todos')
+            .send({})
+            .expect(400)
+            .end((err, res) => {
+                if (err) {
+                    return done(err);
+                }
+
+                Todo.find().then((todos) => {
+                    expect(todos.length).toBe(0);
+                    done();
+                }).catch((e) => done(e));
+            });
+    });
 });
