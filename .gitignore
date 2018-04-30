@@ -1,6 +1,7 @@
 # folders
 node_modules
 mongo-data
+.vscode
 
 # files
 package-lock.json
