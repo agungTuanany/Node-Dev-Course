@@ -12,6 +12,9 @@ This function gonna run before all every test cases
 
 @param .toHexString() converting '_id' into a String because we gonna pass in into URL,
 because '_id' is an object, so we can start make some assertions about what should happen when this request get fired.
+
+@param toBeFalsy(): in expect@22+ 'toNotExist()' not be able to use, so change it with 'toBeFalsy()'
+    see documentation https://devhints.io/expectjs
 **/
 const expect = require('expect');
 const request = require('supertest');
@@ -59,8 +62,8 @@ describe('POST /todos', () => {
                 }).catch((e) => done(e));
             });
     });
-  
-    it('should not create todo with invaled body data', (done) => {
+
+    it('should not create todo with invalid body data', (done) => {
         request(app)
             .post('/todos')
             .send({})
@@ -115,5 +118,44 @@ describe('GET /todos/:id', () => {
             .get(`/todos/123abc`)
             .expect(404)
             .end(done);
+    });
+
+    describe('DELETE /todos/:id', () => {
+        it('should remove a todo', (done) => {
+            let hexId = todos[1]._id.toHexString();
+
+            request(app)
+                .delete(`/todos/${hexId}`)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.todo._id).toBe(hexId);
+                })
+                .end((err, res) => {
+                if (err) {
+                    return done(err);
+                }
+
+                Todo.findById(hexId).then((todo) => {
+                    expect(todo).toBeFalsy();
+                    done();
+                }).catch((e) => done(e));
+            });
+        });
+
+        it('should return 4040 if todo not found', (done) => {
+            let hexId = new ObjectID().toHexString();
+
+            request(app)
+                .delete(`/todos/${hexId}`)
+                .expect(404)
+                .end(done);
+        });
+
+        it('should return 404 if object id is invalid ', (done) => {
+            request(app)
+                .delete('/todos/123abc')
+                .expect(404)
+                .end(done);
+        });
     });
 });
