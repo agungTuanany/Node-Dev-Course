@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
@@ -35,7 +36,7 @@ app.get('/todos', (req, res) => {
 app.get('/todos/:id', (req, res) => {
     let id = req.params.id;
 
-    if(!ObjectID.isValid(id)) {
+    if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
 
@@ -52,7 +53,7 @@ app.get('/todos/:id', (req, res) => {
 app.delete('/todos/:id', (req, res) => {
     let id= req.params.id;
 
-    if(!ObjectID.isValid(id)) {
+    if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
 
@@ -62,6 +63,36 @@ app.delete('/todos/:id', (req, res) => {
         }
         res.send({todo});
     }).catch((e) => {
+        res.status(400).send();
+    });
+});
+
+app.patch('/todos/:id', (req, res) => {
+    let id = req.params.id;
+    let body = _.pick(req.body, ['text', 'completed']); // is a subset that user past
+
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    // checking the completed value and using that value to set completedAt
+    if (_.isBoolean(body.completed) && body.completed) {
+        body.completedAt = new Date().getTime();
+    } else {
+        body.completed = false;
+        body.completedAt = null;
+    }
+
+    // making a query to update the database, use mongodb operator and optional condition
+    Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).theny((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+
+        res.send({todo});
+        console.log("you change the value");
+    }).catch((e) => {
+        console.log("you have an error");
         res.status(400).send();
     });
 });
