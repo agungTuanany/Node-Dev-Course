@@ -12,7 +12,7 @@
     "node": "8.11.1",
     "npm": "5.8.x"
   },
-  "keywords": [],
+  "keywords":"",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -23,7 +23,7 @@
     "mongoose": "^5.0.16"
   },
   "devDependencies": {
-    "expect": "^22.4.3",
+    "expect": "^1.4.3",
     "mocha": "^5.1.1",
     "nodemon": "^1.17.3",
     "supertest": "^3.0.0"

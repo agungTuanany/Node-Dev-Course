@@ -84,7 +84,7 @@ app.patch('/todos/:id', (req, res) => {
     }
 
     // making a query to update the database, use mongodb operator and optional condition
-    Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).theny((todo) => {
+    Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
         if (!todo) {
             return res.status(404).send();
         }
