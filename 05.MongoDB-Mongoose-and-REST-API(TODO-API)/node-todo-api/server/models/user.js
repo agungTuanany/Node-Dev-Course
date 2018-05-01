@@ -9,16 +9,14 @@ const User = mongoose.model('users', {
         minLength:1,
         unique: true,
         validate: {
-            validator: (value) => {
-                return validator.isEmail(value);
-            },
+            validator: validator.isEmail,
             message: `{VALUE} is not valid email`
         }
     },
     password: {
         type: String,
-        require: true,
-        minLength: 6
+        required: true,
+        minLength: 6,
     },
     tokens: [{
         access: {
@@ -32,6 +30,4 @@ const User = mongoose.model('users', {
     }]
 });
 
-module.exports = {
-    User,
-}
+module.exports = {User}
