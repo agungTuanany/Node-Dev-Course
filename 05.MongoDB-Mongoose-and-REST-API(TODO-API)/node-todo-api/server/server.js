@@ -111,7 +111,7 @@ app.post('/users', (req, res) => {
     }).catch((e) => {
         res.status(400).send(e)
     });
-    console.log(req.body);
+    // console.log(req.body);
 });
 
 app.get('/users/me',authenticate, (req, res) => {
