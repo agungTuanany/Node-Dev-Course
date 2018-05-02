@@ -29,7 +29,7 @@ console.log('decoded', decoded);
 // token.hash = SHA256(JSON.stringify(token.data)).toString();
 
 
-// var resultHash = SHA256(JSON.stringify(token.data) + 'somesceter').toString();
+// var resultHash = SHA256(JSON.stringify(token.data) + 'somesecret').toString();
 
 // if (resultHash === token.hash) {
 //     console.log('Data was not changed');

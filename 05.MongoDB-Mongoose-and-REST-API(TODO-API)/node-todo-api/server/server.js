@@ -15,7 +15,6 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 
 app.post('/todos' , (req, res) => {
-    console.log(req.body);
     let todo = new Todo({
         text: req.body.text
     });
@@ -25,6 +24,7 @@ app.post('/todos' , (req, res) => {
     }, (e) => {
         res.status(400).send(e);
     });
+    console.log(req.body);
 });
 
 app.get('/todos', (req, res) => {
@@ -103,20 +103,14 @@ app.post('/users', (req, res) => {
     let body = _.pick(req.body, ['email', 'password']);
     let user = new User(body);
 
-    user.save().then((user) => {
-        res.send(user);
+    user.save().then(() => {
+        return user.generateAuthToken();
+    }).then((token) => {
+        res.header('x-auth', token).send(user); // .header: as a response HTTP header
     }).catch((e) => {
         res.status(400).send(e)
     });
-});
-
-app.get('/users', (req, res) => {
-    console.log(req.body)
-    User.find().then((user) => {
-        res.send({user});
-    }, (e) => {
-        res.status(400).send(e);
-    });
+    console.log(req.body);
 });
 
 app.listen(port, () => {
