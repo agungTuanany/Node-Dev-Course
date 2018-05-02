@@ -25,24 +25,11 @@ const {ObjectID} = require('mongodb');
 
 const {app} = require('./../server');
 const {Todo} = require('./../models/todo');
-
-// add dummy todos
-const todos = [{
-    _id: new ObjectID(),
-    text: "First test todo with mocha, expect and superTest"
-}, {
-    _id: new ObjectID(),
-    text: "Second test todo with expect, mocha and superTest",
-    completed: true,
-    completedAt: 123
-}];
+const {todos, populateTodos, users, populateUsers} = require('./seed/seed');
 
 // adding testing lifecycle method
-beforeEach((done) => {
-    Todo.remove({}).then(() => {
-        Todo.insertMany(todos);
-    }).then(() => done());
-});
+beforeEach(populateUsers);
+beforeEach(populateTodos);
 
 describe('POST /todos', () => {
     it('should create a new todo', (done) => {
