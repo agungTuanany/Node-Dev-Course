@@ -6,7 +6,7 @@ const {User} = require('./../../models/user');
 
 // add dummy users
 const userOneId = new ObjectID();
-const UserTwoId = new ObjectID();
+const userTwoId = new ObjectID();
 
 const users =[{
     _id: userOneId,
@@ -17,7 +17,7 @@ const users =[{
         token: jwt.sign({_id: userOneId, access: 'auth'}, '4321ytrewq').toString()
     }]
 }, {
-    _id: UserTwoId,
+    _id: userTwoId,
     email:'attempt2@localhost.com',
     password: 'attempt!322'
 }];
