@@ -19,7 +19,11 @@ const users =[{
 }, {
     _id: userTwoId,
     email:'attempt2@localhost.com',
-    password: 'attempt!322'
+    password: 'attempt!322',
+    tokens: [{
+        access: 'auth',
+        token: jwt.sign({_id: userTwoId, access: 'auth'}, '4321ytrewq').toString()
+    }]
 }];
 
 // add dummy todos
