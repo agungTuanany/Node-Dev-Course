@@ -25,12 +25,14 @@ const users =[{
 // add dummy todos
 const todos = [{
     _id: new ObjectID(),
-    text: "First test todo with mocha, expect and superTest"
+    text: "First test todo with mocha, expect and superTest",
+    _creator: userOneId
 }, {
     _id: new ObjectID(),
     text: "Second test todo with expect, mocha and superTest",
     completed: true,
-    completedAt: 123
+    completedAt: 123,
+    _creator: userTwoId
 }];
 
 const populateTodos = (done) => {
