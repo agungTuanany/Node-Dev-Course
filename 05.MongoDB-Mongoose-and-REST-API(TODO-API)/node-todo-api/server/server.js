@@ -15,7 +15,7 @@ const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
-app.post('/todos' , (req, res) => {
+app.post('/todos', (req, res) => {
     let todo = new Todo({
         text: req.body.text
     });
@@ -25,7 +25,6 @@ app.post('/todos' , (req, res) => {
     }, (e) => {
         res.status(400).send(e);
     });
-    console.log(req.body);
 });
 
 app.get('/todos', (req, res) => {
@@ -44,9 +43,10 @@ app.get('/todos/:id', (req, res) => {
     }
 
     Todo.findById(id).then((todo) => {
-        if(!todo) {
-            return res.status(404).send();
+        if (!todo) {
+        return res.status(404).send();
         }
+
         res.send({todo});
     }).catch((e) => {
         res.status(400).send();
@@ -54,16 +54,17 @@ app.get('/todos/:id', (req, res) => {
 });
 
 app.delete('/todos/:id', (req, res) => {
-    let id= req.params.id;
+    let id = req.params.id;
 
     if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
 
     Todo.findByIdAndRemove(id).then((todo) => {
-        if(!todo) {
+        if (!todo) {
             return res.status(404).send();
         }
+
         res.send({todo});
     }).catch((e) => {
         res.status(400).send();
@@ -72,13 +73,12 @@ app.delete('/todos/:id', (req, res) => {
 
 app.patch('/todos/:id', (req, res) => {
     let id = req.params.id;
-    let body = _.pick(req.body, ['text', 'completed']); // is a subset that user past
+    let body = _.pick(req.body, ['text', 'completed']);
 
     if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
 
-    // checking the completed value and using that value to set completedAt
     if (_.isBoolean(body.completed) && body.completed) {
         body.completedAt = new Date().getTime();
     } else {
@@ -86,20 +86,18 @@ app.patch('/todos/:id', (req, res) => {
         body.completedAt = null;
     }
 
-    // making a query to update the database, use mongodb operator and optional condition
     Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
         if (!todo) {
             return res.status(404).send();
         }
 
         res.send({todo});
-        console.log("you change the value");
     }).catch((e) => {
-        console.log("you have an error");
         res.status(400).send();
-    });
+    })
 });
 
+// POST /users
 app.post('/users', (req, res) => {
     let body = _.pick(req.body, ['email', 'password']);
     let user = new User(body);
@@ -107,19 +105,31 @@ app.post('/users', (req, res) => {
     user.save().then(() => {
         return user.generateAuthToken();
     }).then((token) => {
-        res.header('x-auth', token).send(user); // .header: as a response HTTP header
+        res.header('x-auth', token).send(user);
     }).catch((e) => {
-        res.status(400).send(e)
-    });
-    // console.log(req.body);
+        res.status(400).send(e);
+    })
 });
 
-app.get('/users/me',authenticate, (req, res) => {
+app.get('/users/me', authenticate, (req, res) => {
     res.send(req.user);
 });
 
+// POST /users/login {email, password}
+app.post('/users/login', (req, res) => {
+    let body = _.pick(req.body, ['email', 'password']);
+
+    User.findByCredentials(body.email, body.password).then((user) => {
+        return user.generateAuthToken().then((token) => {
+            res.header('x-auth', token).send(user);
+        });
+    }).catch((e) => {
+        res.status(400).send();
+    });
+});
+
 app.listen(port, () => {
-    console.log(`Started on port ${port}`);
+    console.log(`Started up at port ${port}`);
 });
 
 module.exports = {app};
