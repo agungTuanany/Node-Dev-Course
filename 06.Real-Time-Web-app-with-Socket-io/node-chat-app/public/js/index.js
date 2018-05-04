@@ -16,3 +16,11 @@ socket.on('disconnect', function ()  {
 socket.on('newMessage', function (message) {
     console.log('You recieve a message from server', message);
 });
+
+// listen to event akcnowledgements
+socket.emit('createMessage', {
+    from: 'local-Client',
+    text: "listen to event akcnowledgements from Client"
+}, function (done) {
+    console.log('Got it', done)
+});
