@@ -6,3 +6,4 @@ mongo-data
 # files
 package-lock.json
 server.log
+config.json

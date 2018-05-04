@@ -5,27 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <!-- <script src="main.js"></script> -->
 </head>
 <body>
     <p>Wellcome to the chat</p>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        // making request from the client to the server,
-        // to open up web-socket and keep that connection open
-        var socket = io();
-
-        // listen to event to connect from client
-        socket.on('connect', () => {
-            console.log('connected to server');
-        });
-
-        // listen to event to disconnect from client
-        socket.on('disconnect', () => {
-            console.log('Disconnected from server');
-        });
-    </script>
+    <script src="/js/index.js"></script>
 </body>
 </html>
