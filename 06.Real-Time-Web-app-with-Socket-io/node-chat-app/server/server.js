@@ -21,12 +21,13 @@ io.on('connection', (socket) => {
 
     socket.on('createMessage', (message, callback) => {
         console.log('createMessage', message);
-        // io.emit: emit the event to every singgle connection
+
         io.emit('newMessage', generateMessage(message.from, message.text));
         callback('This is from the server');
+    });
 
-        // socket.broadcast.emit: emit to every singgle user without recieve a message you sended from server
-        // socket.broadcast.emit('newMessage',generateMessage(message.from. message.text));
+    socket.on('createLocationMessage', (coords) => {
+        io.emit('newMessage', generateMessage('admin', `${coords.latitude}, ${coords.longitude}`));
     });
 
     socket.on('disconnect', () => {
