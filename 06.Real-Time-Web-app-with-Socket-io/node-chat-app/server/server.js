@@ -15,9 +15,9 @@ app.use(express.static(PublicPath));
 io.on('connection', (socket) => {
     console.log('New user connected');
 
-    socket.emit('newMessage', generateMessage('admin', 'Wellcome to the chat app'));
+    socket.emit('newMessage', generateMessage('admin ', ' Wellcome to the chat app'));
 
-    socket.broadcast.emit('newMessage',generateMessage('Admin', 'new user joined'));
+    socket.broadcast.emit('newMessage',generateMessage('admin ', ' new user joined'));
 
     socket.on('createMessage', (message, callback) => {
         console.log('createMessage', message);
@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('createLocationMessage', (coords) => {
-        io.emit('newLocationMessage', generateLocationMessage('admin', coords.latitude, coords.longitude));
+        io.emit('newLocationMessage', generateLocationMessage('admin ', coords.latitude, coords.longitude));
     });
 
     socket.on('disconnect', () => {
