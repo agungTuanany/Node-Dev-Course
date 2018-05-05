@@ -3,24 +3,32 @@
 const socket = io();
 
 // listen to event to connect from client
-socket.on('connect', function ()  {
+socket.on('connect', () =>  {
     console.log('connected to server');
 });
 
 // listen to event to disconnect from client
-socket.on('disconnect', function ()  {
+socket.on('disconnect', () => {
     console.log('Disconnected from server');
 });
 
 // listen to event from client to server
-socket.on('newMessage', function (message) {
+socket.on('newMessage', (message) => {
     console.log('You recieve a message from server', message);
+
+    var li = jQuery('<li></li>');
+    li.text(`${message.from}: ${message.text}`);
+
+    jQuery('#messages').append(li);
 });
 
-// listen to event akcnowledgements
-socket.emit('createMessage', {
-    from: 'local-Client',
-    text: "listen to event akcnowledgements from Client"
-}, function (done) {
-    console.log('Got it', done)
+jQuery('#message-form').on('submit', (e) => {
+    e.preventDefault();
+
+    socket.emit('createMessage', {
+        from: 'user',
+        text: $('[name=message]').val()
+    }, () => {
+
+    });
 });
