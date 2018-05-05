@@ -16,6 +16,7 @@ function scrollToBottom () {
         messages.scrollTop(scrollHeight);
     }
 }
+
 socket.on('connect', () =>  {
     console.log('connected to server');
 });
