@@ -1,6 +1,5 @@
 const socket = io();
 
-
 function scrollToBottom () {
     // Selectors
     var messages = jQuery('#messages');
@@ -15,10 +14,20 @@ function scrollToBottom () {
     if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
         messages.scrollTop(scrollHeight);
     }
-}
+};
 
 socket.on('connect', () =>  {
+    var params = $.deparam(window.location.search);
     console.log('connected to server');
+
+    socket.emit('join', params, (err) => {
+        if (err) {
+            alert(err);
+            window.location.href = '/';
+        } else {
+            console.log('No error');
+        }
+    });
 });
 
 socket.on('disconnect', () => {
