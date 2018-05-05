@@ -1,7 +1,6 @@
 const moment = require('moment');
 
 const timeStamp = moment().valueOf()
-const url ='https://www.google.com/maps?q=';
 
 const generateMessage = (from, text) => {
     return {
