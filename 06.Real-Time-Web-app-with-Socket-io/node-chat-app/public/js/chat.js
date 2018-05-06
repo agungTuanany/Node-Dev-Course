@@ -35,14 +35,13 @@ socket.on('disconnect', () => {
 });
 
 socket.on('updateUserList', (users) => {
-    // rendering user to the list
     var ol = $('<ol></ol>');
 
-    users.forEach(() => {
-        ol.append($('<li></li>').text(users));
+    users.forEach((user) => {
+        ol.append(jQuery('<li></li>').text(user));
     });
-    // showing it on page
-    $('#users').html(ol);
+
+    jQuery('#users').html(ol);
 });
 
 socket.on('newMessage', (message) => {
@@ -78,7 +77,6 @@ $('#message-form').on('submit', (e) => {
     var messageTexbox = $('[name=message');
 
     socket.emit('createMessage', {
-        from: 'user ',
         text: messageTexbox.val()
     }, () => {
         messageTexbox.val('')
