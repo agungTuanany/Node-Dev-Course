@@ -33,6 +33,7 @@ io.on('connection', (socket) => {
         socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
         socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined.`));
         callback();
+        console.log('new User connected is', users);
     });
 
     socket.on('createMessage', (message, callback) => {
@@ -47,8 +48,17 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('User was disconnected');
+        let user = users.removeUser(socket.id);
+        
+        if (user) {
+            // update the user list
+            io.to(user.room).emit('updateUserList', users.getUserList(user.room));
+            // print message the user has left the chat-room
+            io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left`))
+        }
+        console.log('User was disconnected', user);
     });
+
 });
 
 server.listen(port, () => {
