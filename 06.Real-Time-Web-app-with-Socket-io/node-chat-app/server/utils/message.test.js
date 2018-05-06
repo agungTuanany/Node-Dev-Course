@@ -21,7 +21,7 @@ describe('generateMessage', () => {
         let message = generateMessage(from, text);
 
         expect(message).toMatchObject({from, text})
-        expect(typeof message.createdAt).toBe('string')
+        expect(typeof message.createdAt).toBe('number')
     });
 });
 
@@ -34,6 +34,6 @@ describe('generateLocationMessage', () => {
         let message = generateLocationMessage(from, latitude, longitude);
 
         expect(message).toMatchObject({from, url});
-        expect(typeof message.createdAt).toBe('string');
+        expect(typeof message.createdAt).toBe('number');
     });
 });
