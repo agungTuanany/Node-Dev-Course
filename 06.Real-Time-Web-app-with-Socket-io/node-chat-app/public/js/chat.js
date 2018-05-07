@@ -2,7 +2,7 @@ const socket = io();
 
 function scrollToBottom () {
     // Selectors
-    var messages = jQuery('#messages');
+    var messages = $('#messages');
     var newMessage = messages.children('li:last-child')
     // Heights
     var clientHeight = messages.prop('clientHeight');
@@ -38,10 +38,10 @@ socket.on('updateUserList', (users) => {
     var ol = $('<ol></ol>');
 
     users.forEach((user) => {
-        ol.append(jQuery('<li></li>').text(user));
+        ol.append($('<li></li>').text(user));
     });
 
-    jQuery('#users').html(ol);
+    $('#users').html(ol);
 });
 
 socket.on('newMessage', (message) => {
