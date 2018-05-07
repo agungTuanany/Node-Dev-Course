@@ -15,13 +15,26 @@ const getCountries = (currencyCode) => {
 };
 
 const convertCurrency = (from, to, amount) => {
-    return getCountries(to).then((countries) => {
+    let countries;
+    return getCountries(to).then((tempCountries) => {
+        countries = tempCountries;
         return getExchangeRate(from, to);
     }).then((rate) => {
         const exchangedAmount = amount * rate;
 
-        return `${amount} ${from} is worth ${exchangedAmount} ${to}. `;
-    })
+        return `${amount} ${from} is worth ${exchangedAmount} ${to}. ${to} can be used in the following countries: ${countries.join(', ')}`;
+    });
+};
+
+// create convertCurrencyAlt as async function
+
+const convertCurrencyAlt = async (from, to, amount) => {
+    const countries = await getCountries(to);
+    const rate = await getExchangeRate(from, to);
+    const exchangedAmount = amount * rate;
+
+    return `${amount} ${from} is worth ${exchangedAmount} ${to}. ${to} can be used in the following countries: ${countries.join(', ')}`;
+   
 }
 
 getExchangeRate('USD', 'IDR').then((rate) => {
@@ -32,7 +45,11 @@ convertCurrency('IDR', 'USD', 10000).then((rate) => {
     console.log(rate);
 });
 
-getCountries('IDR').then((country) => {
-    console.log(country);
-});
+convertCurrencyAlt('USD', 'IDR', 1000).then((rate) => {
+    console.log(rate);
+})
+
+// getCountries('IDR').then((country) => {
+//     console.log(country);
+// });
 
