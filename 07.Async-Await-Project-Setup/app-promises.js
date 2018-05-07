@@ -74,10 +74,38 @@ const getStatus = (userId) => {
         // return our string
         return `${user.name} has a ${average}% in the class`;
     });
+};
+
+/**
+ * before we use 'await' we should mark that function as 'async'
+ * 'async' function always-always return promises.
+ * returning something is equivalent to resolving.
+ * throw an error is equivalent to rejecting.
+ *
+ */
+
+// () => {
+//     return new Promise((resolve, reject) => {
+//         resolve('Mike');
+//         reject('This is an error');
+//     })
+// }
+
+const getStatusAlt = async (userId) => {
+    throw new Error('This is an error');
+    return 'Mike';
 }
 
-getStatus(1).then((status) => {
-    console.log(status);
+getStatusAlt().then((name) => {
+    console.log(name);
 }).catch((e) => {
     console.log(e);
-});
+})
+
+// console.log(getStatusAlt());
+
+// getStatus(1).then((status) => {
+//     console.log(status);
+// }).catch((e) => {
+//     console.log(e);
+// });
