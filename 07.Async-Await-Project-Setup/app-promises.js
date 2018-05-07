@@ -34,7 +34,7 @@ const getUser = (id) => {
         if (user) {
             resolve(user);
         } else {
-            reject(`user yo find user with id of ${id}`);
+            reject(`unable to find user with id of ${id}`);
         }
     });
 };
@@ -54,19 +54,30 @@ const getGrades = (schoolId) => {
  *  We can't cause we do not have access for 'user' from getUser() inside  @param .then((grades))
  *  cause it was created with another function @param getGrades(user.schooId).
  *
+ * 'let' is ES6 equivalent to 'var', using 'let' for changing the value of variable
+ *
+ * @param grade.grade. 1st grade: individual object, 2nd grade: object property
  */
 // return Jono with grade 83% in class
 const getStatus = (userId) => {
-    return getUser(userId).then((user) => {
+    let user;
+    return getUser(userId).then((tempUser) => {
+        user = tempUser;
         return getGrades(user.schoolId);
     }).then((grades) => {
-        // average
+        let average = 0;
+
+        if (grades.length > 0) {
+            // average
+            average = grades.map((grade) => grade.grade).reduce((a, b) => a + b) / grades.length;
+        }
         // return our string
+        return `${user.name} has a ${average}% in the class`;
     });
 }
 
-getGrades(101).then((grades) => {
-    console.log(grades);
+getStatus(1).then((status) => {
+    console.log(status);
 }).catch((e) => {
     console.log(e);
 });
