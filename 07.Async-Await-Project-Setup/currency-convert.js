@@ -2,16 +2,30 @@ const axios =require('axios');
 
 const fixerAPI_KEY = '9a51547f1dd050576bf2f8adfd6ff415';
 
-const getExchangeRate = (from, to) => {
-    return axios.get(`http://api.fixer.io/latest?access_key=${fixerAPI_KEY}&base=${from}`).then((response) => {
-        return response.data.rates[to];
-    });
+const getExchangeRate = async (from, to) => {
+    try {
+        const response = await axios.get(`http://api.fixer.io/latest?access_key=${fixerAPI_KEY}&base=${from}`);
+        const rate = response.data.rates[to];
+
+        if (rate) {
+            return rate;
+        } else {
+            throw new Error();
+        }
+    } catch (e) {
+        throw new Error(`Unable to get exchange rate for ${from} and ${to}`);
+    }
+
 };
 
-const getCountries = (currencyCode) => {
-    return axios.get(`https://restcountries.eu/rest/v2/currency/${currencyCode}`).then((response) => {
+const getCountries = async (currencyCode) => {
+    try {
+        const response = await axios.get(`https://restcountries.eu/rest/v2/currency/${currencyCode}`);
         return response.data.map((country) => country.name);
-    });
+    } catch (e) {
+        throw new Error (`Unable to get countries that use ${currencyCode}`)
+    }
+
 };
 
 const convertCurrency = (from, to, amount) => {
@@ -27,27 +41,30 @@ const convertCurrency = (from, to, amount) => {
 };
 
 // create convertCurrencyAlt as async function
-
 const convertCurrencyAlt = async (from, to, amount) => {
     const countries = await getCountries(to);
     const rate = await getExchangeRate(from, to);
     const exchangedAmount = amount * rate;
 
     return `${amount} ${from} is worth ${exchangedAmount} ${to}. ${to} can be used in the following countries: ${countries.join(', ')}`;
-   
+
 }
 
 getExchangeRate('USD', 'IDR').then((rate) => {
     console.log(rate);
 });
 
-convertCurrency('IDR', 'USD', 10000).then((rate) => {
+convertCurrency('IDR', 'USG', 10000).then((rate) => {
     console.log(rate);
+}).catch((e) => {
+    console.log(e.message);
 });
 
-convertCurrencyAlt('USD', 'IDR', 1000).then((rate) => {
+convertCurrencyAlt('USG', 'IDR', 1000).then((rate) => {
     console.log(rate);
-})
+}).catch((e) => {
+    console.log(e.message);
+});
 
 // getCountries('IDR').then((country) => {
 //     console.log(country);
