@@ -82,25 +82,38 @@ const getStatus = (userId) => {
  * returning something is equivalent to resolving.
  * throw an error is equivalent to rejecting.
  *
+ * @param const user = await getUser(userId);
+ *  it's equivalent to
+ *
+ *      getUser(userId).then((tempUser) => {
+        user = tempUser;
+        return getGrades(user.schoolId);
+ *
+ * @param const grades = await getGrades(user.schoolId);
+ *  it's equivalent to all the complex chaining and nesting with stupid variable (let user) up above
+ *
  */
 
-// () => {
-//     return new Promise((resolve, reject) => {
-//         resolve('Mike');
-//         reject('This is an error');
-//     })
-// }
-
 const getStatusAlt = async (userId) => {
-    throw new Error('This is an error');
-    return 'Mike';
-}
+    const user = await getUser(userId);
+    const grades = await getGrades(user.schoolId);
+    let average = 0;
 
-getStatusAlt().then((name) => {
-    console.log(name);
+        if (grades.length > 0) {
+            // average
+            average = grades.map((grade) => grade.grade).reduce((a, b) => a + b) / grades.length;
+        }
+        // return our string
+        return `${user.name} has a ${average}% in the class`;
+
+    console.log(user, grades);
+};
+
+getStatusAlt(2).then((status) => {
+    console.log(status);
 }).catch((e) => {
     console.log(e);
-})
+});
 
 // console.log(getStatusAlt());
 
